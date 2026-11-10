@@ -1,17 +1,17 @@
-package com.SYSC4806.MiniShopifyApp;
+package com.SYSC4806.MiniShopifyApp.model;
 
 import jakarta.persistence.*;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
 @Table(name = "shops")
 public class Shop {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private String name;
     
     @Column(length = 1000)
@@ -26,8 +26,10 @@ public class Shop {
     @JoinColumn(name = "merchant_id")
     private Merchant merchant;
 
-    public Shop() {}
+    @OneToMany(mappedBy = "shop", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Product> products = new ArrayList<>();
 
+    public Shop() {}
     public Shop(String name, String description, Set<String> tags, Merchant merchant) {
         this.name = name;
         this.description = description;
@@ -46,4 +48,6 @@ public class Shop {
     public void setTags(Set<String> tags) { this.tags = tags; }
     public Merchant getMerchant() { return merchant; }
     public void setMerchant(Merchant merchant) { this.merchant = merchant; }
+    public List<Product> getProducts() { return products; }
+    public void setProducts(List<Product> products) { this.products = products; }
 }
