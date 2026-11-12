@@ -49,13 +49,13 @@ Additional test scaffolding and feature-specific testing are being completed as 
 
 The current Milestone 1 UML model diagram documents the Merchant, Shop, and Product model classes and their relationships.
 
-[View UML Model Diagram](docs/uml-model.md)
+[View UML Model Diagram](./docs/uml-model.md)
 
 ## Database Schema
 
 The current Milestone 1 database schema is derived from the JPA entity mappings and documents the main tables, primary keys, foreign keys, and relationships.
 
-[View Database Schema](docs/database-schema.md)
+[View Database Schema](./docs/database-schema.md)
 
 ## Current Sprint Status
 
