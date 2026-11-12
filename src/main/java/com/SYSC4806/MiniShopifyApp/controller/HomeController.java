@@ -10,9 +10,4 @@ public class HomeController {
     public String index() {
         return "index"; // Landing page with Merchant / Customer buttons
     }
-
-    @GetMapping("/customer")
-    public String customerHome() {
-        return "customer-empty"; // Empty customer view
-    }
 }
