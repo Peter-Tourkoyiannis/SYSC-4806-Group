@@ -26,6 +26,12 @@ Run the generated JAR with:
 
 `java -jar target/*.jar`
 
+Live Link to view on Azure:
+<br><br>
+*Note: Since Spring Boot is a CPU extensive fwk, it may take a few minutes to load.*
+
+<https://4806-group-project-ebexg9h8ckanc0ar.canadacentral-01.azurewebsites.net/>
+
 ## Testing
 
 Milestone 1 tests will include repository tests and controller/MockMVC tests for the implemented shop creation and search functionality.
