@@ -12,7 +12,20 @@ Merchant creates a shop → shop is stored → shops can be listed and searched.
 
 ## Current Functionality
 
-To be updated as Milestone 1 features are merged.
+The current Milestone 1 implementation includes:
+
+- Merchant shop creation
+- Merchant, Shop, and Product JPA entities
+- Repository support for the main model entities
+- Shop persistence and merchant-to-shop relationships
+- Shop dashboard
+- Product creation and inventory fields
+- Product-to-shop relationships
+- Shop tags stored using a JPA element collection
+- UML model documentation
+- Database schema documentation
+
+Shop search, customer-facing UI, and additional Milestone 1 testing are being completed through separate project branches.
 
 ## Running the Application
 
@@ -28,20 +41,28 @@ Run the generated JAR with:
 
 ## Testing
 
-Milestone 1 tests will include repository tests and controller/MockMVC tests for the implemented shop creation and search functionality.
+Milestone 1 testing covers the main application flow through repository and controller-level tests.
+
+Additional test scaffolding and feature-specific testing are being completed as part of the remaining Milestone 1 work.
 
 ## UML Model Diagram
 
-To be added once the Milestone 1 model classes are finalized and merged.
+The current Milestone 1 UML model diagram documents the Merchant, Shop, and Product model classes and their relationships.
+
+[View UML Model Diagram](docs/uml-model.md)
 
 ## Database Schema
 
-To be added once the ORM-generated database structure is finalized.
+The current Milestone 1 database schema is derived from the JPA entity mappings and documents the main tables, primary keys, foreign keys, and relationships.
+
+[View Database Schema](docs/database-schema.md)
 
 ## Current Sprint Status
 
-See the GitHub Issues and Project board for current Milestone 1 progress.
+Milestone 1 currently includes the initial merchant/shop workflow, model entities, repository layer, documentation, UML model diagram, database schema, CI/CD setup, and supporting UI and testing work.
+
+See the GitHub Issues and Project board for the current status of individual Milestone 1 tasks.
 
 ## Next Sprint
 
-Milestone 2 will expand the application toward the full merchant-to-customer flow, including product management, cart functionality, checkout, inventory handling, and authentication.
+Milestone 2 will expand the application toward the full merchant-to-customer flow, including product management, cart functionality, checkout, inventory handling, authentication, and additional customer-facing features.
