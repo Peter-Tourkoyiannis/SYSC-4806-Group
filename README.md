@@ -43,7 +43,7 @@ Run the generated JAR with:
 
 Milestone 1 testing covers the main application flow through repository and controller-level tests.
 
-Additional test scaffolding and feature-specific testing are being completed as part of the remaining Milestone 1 work.
+Additional test scaffolding and feature-specific testing are being completed as part of the remaining Milestone 1 work. ()
 
 ## UML Model Diagram
 
