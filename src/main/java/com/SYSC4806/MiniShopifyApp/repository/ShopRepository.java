@@ -17,4 +17,5 @@ public interface ShopRepository extends JpaRepository<Shop, Long> {
                         lower(t) = lower(:q) order by s.name""")
     List<Shop> findByQ(String q);
 
+    List<Shop> findByMerchant_NameIgnoreCase(String merchantName);
 }

@@ -7,7 +7,7 @@
 <body class="container mt-5">
     <div class="mb-4">
         <div class="d-flex justify-content-end gap-2 mb-3">
-            <a th:href="@{/shops/{id}(id=${shop.id})}" class="btn btn-outline-primary">View as customer</a>
+            <a href="customer-view.html" class="btn btn-outline-primary">View as customer</a>
             <a th:href="@{/}" class="btn btn-outline-dark">Home</a>
         </div>
         <h1 th:text="${shop.name}">Shop Name</h1>
