@@ -53,7 +53,7 @@ public class ShopController {
     public String productDetails(@PathVariable Long shopId, @PathVariable Long productId, Model model) {
 
         Product product = productRepository.findById(productId).
-                filter(p -> p.getId().equals(shopId)).orElseThrow(() ->
+                filter(p -> p.getShop().getId().equals(shopId)).orElseThrow(() ->
                         new ResponseStatusException(HttpStatus.NOT_FOUND, "Product not found"));
 
         model.addAttribute("product", product);
