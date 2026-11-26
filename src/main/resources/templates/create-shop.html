@@ -4,29 +4,45 @@
     <title>Create Shop</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
 </head>
-<body class="container mt-5" style="max-width: 600px;">
+<body>
+    <div th:replace="~{fragments/layout :: navbar}"></div>
+    <main class="container">
     <div class="d-flex justify-content-between align-items-center">
         <h1>Step 1: Create Your Shop</h1>
-        <a th:href="@{/}" class="btn btn-outline-dark">Home</a>
+        <div class="d-flex gap-2">
+            <a th:href="@{/merchant/new}" class="btn btn-outline-success">Create a new merchant</a>
+            <a th:href="@{/merchant/home}" class="btn btn-outline-dark">My shops</a>
+            <a th:href="@{/}" class="btn btn-outline-dark">Home</a>
+        </div>
     </div>
-    <form action="/merchant/shops" method="post" class="mt-4">
+    <form th:action="@{/merchant/shops}" th:object="${shopForm}" method="post" class="mt-4">
         <div class="mb-3">
-            <label class="form-label">Merchant Name:</label>
-            <input type="text" name="merchantName" class="form-control" required>
+            <label for="merchantName" class="form-label">Merchant Name:</label>
+            <select id="merchantName" th:field="*{merchantName}" class="form-select" required>
+                <option value="">Choose a merchant</option>
+                <option th:each="merchantName : ${merchants}"
+                        th:value="${merchantName}"
+                        th:text="${merchantName}">Merchant</option>
+            </select>
+            <div th:if="${#fields.hasErrors('merchantName')}" th:errors="*{merchantName}" class="text-danger"></div>
         </div>
         <div class="mb-3">
-            <label class="form-label">Shop Name:</label>
-            <input type="text" name="shopName" class="form-control" required>
+            <label for="shopName" class="form-label">Shop Name:</label>
+            <input id="shopName" type="text" th:field="*{shopName}" class="form-control">
+            <div th:if="${#fields.hasErrors('shopName')}" th:errors="*{shopName}" class="text-danger"></div>
         </div>
         <div class="mb-3">
-            <label class="form-label">Shop Description:</label>
-            <textarea name="description" class="form-control" rows="3" required></textarea>
+            <label for="description" class="form-label">Shop Description:</label>
+            <textarea id="description" th:field="*{description}" class="form-control" rows="3"></textarea>
+            <div th:if="${#fields.hasErrors('description')}" th:errors="*{description}" class="text-danger"></div>
         </div>
         <div class="mb-3">
-            <label class="form-label">Categories / Tags (comma separated):</label>
-            <input type="text" name="tagsString" class="form-control" placeholder="e.g. electronics, apparel">
+            <label for="tagsString" class="form-label">Categories / Tags (comma separated):</label>
+            <input id="tagsString" type="text" th:field="*{tagsString}" class="form-control"
+                   placeholder="e.g. electronics, apparel">
         </div>
         <button type="submit" class="btn btn-success w-100">Next: Add Products</button>
     </form>
+    </main>
 </body>
 </html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>My Shops</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+</head>
+<body>
+    <div th:replace="~{fragments/layout :: navbar}"></div>
+    <main class="container">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1>My Shops</h1>
+        <a th:href="@{/}" class="btn btn-outline-dark">Home</a>
+    </div>
+
+    <form th:action="@{/merchant/home}" method="get" class="row g-2 align-items-end mb-4">
+        <div class="col-md-8">
+            <label for="merchantName" class="form-label">Select merchant by name</label>
+            <select id="merchantName" name="merchantName" class="form-select" required>
+                <option value="">Choose a merchant</option>
+                <option th:each="merchantName : ${merchants}"
+                        th:value="${merchantName}"
+                        th:text="${merchantName}"
+                        th:selected="${selectedMerchantName != null and selectedMerchantName == merchantName}">
+                    Merchant
+                </option>
+            </select>
+        </div>
+        <div class="col-md-4">
+            <button type="submit" class="btn btn-primary">View My Shops</button>
+        </div>
+    </form>
+
+    <div th:if="${merchants.isEmpty()}" class="alert alert-info">
+        No merchants yet. Create a shop to get started.
+    </div>
+
+    <section th:if="${selectedMerchantName != null}">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h2 th:text="|${selectedMerchantName}'s shops|">Merchant's shops</h2>
+            <a th:href="@{/merchant/shops/new(merchantName=${selectedMerchantName})}"
+               class="btn btn-success">Create Shop</a>
+        </div>
+        <div th:if="${shops.isEmpty()}" class="alert alert-light">This merchant has no shops yet.</div>
+        <div class="list-group" th:if="${!shops.isEmpty()}">
+            <a th:each="shop : ${shops}" th:href="@{/merchant/shops/{id}/dashboard(id=${shop.id})}"
+               class="list-group-item list-group-item-action">
+                <div class="d-flex justify-content-between">
+                    <h5 class="mb-1" th:text="${shop.name}">Shop name</h5>
+                    <span class="text-muted">Open dashboard</span>
+                </div>
+                <p class="mb-1" th:text="${shop.description}">Shop description</p>
+            </a>
+        </div>
+    </section>
+
+    <a th:href="@{/merchant/new}" class="btn btn-outline-success mt-4">Create a new merchant</a>
+    </main>
+</body>
+</html>
