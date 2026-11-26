@@ -43,4 +43,14 @@ public class Cart {
     public void remove(Long productId) {
         items.remove(productId);
     }
+
+    public int getItemCount() {
+        int count = 0;
+
+        for (int quantity : items.values()) {
+            count += quantity;
+        }
+
+        return count;
+    }
 }
