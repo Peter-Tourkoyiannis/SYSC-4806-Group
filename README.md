@@ -1,74 +1,115 @@
 # Mini-Shopify
 
-## Project Description
+Mini-Shopify is a Spring Boot web application built for SYSC 4806. It supports a merchant-to-customer shopping flow: merchants create and manage shops and products, while customers browse storefronts, manage a shopping cart, and place orders.
 
-Mini-Shopify is a Spring MVC web application that allows merchants to create shops and manage products, while customers can browse and search available shops.
+## Milestones
 
-## Milestone 1
+**Milestone 1:** Merchant and shop creation, persistence, shop listings, and search.
 
-The goal of Milestone 1 is to implement one working end-to-end use case:
+**Milestone 2:** Product management, customer-facing product details, session-based shopping cart, transactional checkout, inventory updates, order confirmation, and expanded automated tests.
 
-Merchant creates a shop → shop is stored → shops can be listed and searched.
+## Features
 
-## Current Functionality
+### Merchants and products
 
-The current Milestone 1 implementation includes:
+- Create merchants and shops; view a merchant's shops and edit shop details and tags.
+- Manage products from a shop dashboard: add, edit, delete, and update available inventory.
+- Upload product images (JPEG, PNG, GIF, or WebP) and display them in the storefront.
+- Use a JPA `@Version` field on products for optimistic locking during updates.
 
-- Merchant shop creation
-- Merchant, Shop, and Product JPA entities
-- Repository support for the main model entities
-- Shop persistence and merchant-to-shop relationships
-- Shop dashboard
-- Product creation and inventory fields
-- Product-to-shop relationships
-- Shop tags stored using a JPA element collection
-- UML model documentation
-- Database schema documentation
+### Customer shopping flow
 
-Shop search, customer-facing UI, and additional Milestone 1 testing are being completed through separate project branches.
+- Browse shops and search by shop name or tag, including case-insensitive partial matches.
+- View storefronts, product descriptions, prices, images, and available stock.
+- Add products to a session-scoped cart; update quantities or remove items.
+- Review quantities, unit prices, subtotals, and the order total at checkout.
+- Place an order after validating that the cart is nonempty and the requested quantities are valid and in stock.
+- Save the order and its line items, deduct inventory, clear the cart on success, and show the order ID and total on a confirmation page.
+- On checkout validation failure, show an error without saving an order or clearing the cart.
 
-## Running the Application
+**Note:** Checkout is a simulated purchase flow; no payment gateway or real payment processing is implemented.
 
-The project uses Maven and Spring Boot.
+## Technology
 
-Build the project with:
+- **Java 21** and **Spring Boot 4.1.2**
+- Spring MVC, Thymeleaf, and Bootstrap for the web interface
+- Spring Data JPA / Hibernate for entities and persistence
+- H2 for local development and automated tests; PostgreSQL for the Azure production profile
+- Maven Wrapper (`mvnw` / `mvnw.cmd`) for builds and tests
 
-`mvn clean package`
+## Running Locally
 
-Run the generated JAR with:
+**Prerequisite:** JDK 21. Verify with `java -version`.
 
-`java -jar target/*.jar`
+Clone the repository and enter the project directory:
 
-Live Link to view on Azure:
-<br><br>
-*Note: Since Spring Boot is a CPU extensive fwk, it may take a few minutes to load.*
+```bash
+git clone https://github.com/Peter-Tourkoyiannis/SYSC-4806-Group.git
+cd SYSC-4806-Group
+```
 
-<https://4806-group-project-ebexg9h8ckanc0ar.canadacentral-01.azurewebsites.net/>
+Start the application on **Windows (PowerShell)**:
 
-## Testing
+```powershell
+.\mvnw.cmd spring-boot:run
+```
 
-Milestone 1 testing covers the main application flow through repository and controller-level tests.
+Or on **macOS/Linux**:
 
-Additional test scaffolding and feature-specific testing are being completed as part of the remaining Milestone 1 work.
+```bash
+./mvnw spring-boot:run
+```
 
-## UML Model Diagram
+Then visit **http://localhost:8080/**. Choose **Merchant** to set up a shop and add products, or **Customer** to browse shops and test the cart-to-checkout flow. The local H2 database is in memory, so local demo data may need to be recreated after restarting the application.
 
-The current Milestone 1 UML model diagram documents the Merchant, Shop, and Product model classes and their relationships.
+## Main Routes
 
-[View UML Model Diagram](./docs/uml-model.md)
+| Route | Purpose |
+|---|---|
+| `/` | Landing page |
+| `/merchant/home` | Merchant home and shop selection |
+| `/merchant/shops/new` | Create a shop |
+| `/merchant/shops/{shopId}/dashboard` | Manage a shop's products |
+| `/shops` | Browse and search shops |
+| `/shops/{id}` | Customer storefront |
+| `/shops/{shopId}/products/{productId}` | Product details and Add to cart |
+| `/cart` | Review and update cart |
+| `/checkout` | Review the purchase (GET) or place an order (POST) |
+| `/orders/{id}` | Order confirmation |
 
-## Database Schema
+For the full controller and route list, see the [UML and application documentation](./docs/uml-model.md).
 
-The current Milestone 1 database schema is derived from the JPA entity mappings and documents the main tables, primary keys, foreign keys, and relationships.
+## Checkout Design
 
-[View Database Schema](./docs/database-schema.md)
+`CheckoutService.checkoutCart()` runs within a `@Transactional` boundary. It first validates all cart entries (product, quantity, and stock) and then creates `Order`/`OrderItem` records, calculates the total, and updates product inventory. Database changes roll back on unexpected transactional failures. The controller clears the session cart only after checkout succeeds; validation errors return the customer to the checkout view with the cart retained.
 
-## Current Sprint Status
+## Automated Tests
 
-Milestone 1 currently includes the initial merchant/shop workflow, model entities, repository layer, documentation, UML model diagram, database schema, CI/CD setup, and supporting UI and testing work.
+The repository includes Spring Boot / JUnit tests for merchant and shop workflows, product functionality, cart behavior, and checkout. Checkout tests cover successful order persistence and inventory deduction, insufficient stock, and empty-cart rejection.
 
-See the GitHub Issues and Project board for the current status of individual Milestone 1 tasks.
+Run the test suite on **Windows**:
 
-## Next Sprint
+```powershell
+.\mvnw.cmd test
+```
 
-Milestone 2 will expand the application toward the full merchant-to-customer flow, including product management, cart functionality, checkout, inventory handling, authentication, and additional customer-facing features.
+Or on **macOS/Linux**:
+
+```bash
+./mvnw test
+```
+
+GitHub Actions is configured for CI and Azure deployment.
+
+## Azure Deployment
+
+[Open the deployed Mini-Shopify application](https://4806-group-project-ebexg9h8ckanc0ar.canadacentral-01.azurewebsites.net/)
+
+The `prod` Spring profile uses PostgreSQL. Deployment configuration expects the environment variables `DB_URL`, `DB_USERNAME`, and `DB_PASSWORD`. These are deployment settings, not required when running locally with H2.
+
+## Documentation
+
+- [Milestone 2 UML diagrams](./docs/uml-model.md) — domain entities, application layers, and routes.
+- [Database schema](./docs/database-schema.md) — JPA-derived tables, keys, and relationships.
+
+See the repository's GitHub Issues and Project board for implementation tasks and milestone tracking.
