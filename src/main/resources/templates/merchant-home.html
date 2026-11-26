@@ -4,8 +4,9 @@
     <title>My Shops</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
 </head>
-<body class="container mt-5">
+<body class="mt-5">
     <div th:replace="~{fragments/layout :: navbar}"></div>
+    <main class="container">
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h1>My Shops</h1>
         <a th:href="@{/}" class="btn btn-outline-dark">Home</a>
@@ -53,5 +54,6 @@
     </section>
 
     <a th:href="@{/merchant/new}" class="btn btn-outline-success mt-4">Create a new merchant</a>
+    </main>
 </body>
 </html>
