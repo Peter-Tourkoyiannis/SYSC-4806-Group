@@ -14,7 +14,7 @@ public interface ShopRepository extends JpaRepository<Shop, Long> {
     @Query("""
         select distinct s from Shop s left join s.tags t where
                 lower(s.name) like lower(concat('%', :q, '%')) or
-                        lower(t) = lower(:q) order by s.name""")
+                lower(t) like lower(concat('%', :q, '%')) order by s.name""")
     List<Shop> findByQ(String q);
 
     List<Shop> findByMerchant_NameIgnoreCase(String merchantName);
