@@ -62,6 +62,7 @@ public class CartController {
         model.addAttribute("products", products);
         model.addAttribute("quantities", items);
         model.addAttribute("total", total);
+        model.addAttribute("cartItemCount", cart.getItemCount());
 
         return "cart";
     }
