@@ -13,7 +13,7 @@
         <div class="navbar-nav">
             <a class="nav-link" th:href="@{/shops}">Shops</a>
             <a class="nav-link" th:href="@{/cart}">
-                Cart <span class="badge text-bg-secondary" th:text="${cartItemCount}">0</span>
+                Cart (<span class="badge text-bg-secondary" th:text="${cartItemCount ?: 0}">0</span>)
             </a>
             <a class="nav-link" th:href="@{/merchant/home}">Sell</a>
         </div>
