@@ -11,6 +11,7 @@
         <div class="d-flex gap-2">
             <a th:href="@{/merchant/new}" class="btn btn-outline-success">Create a new merchant</a>
             <a th:href="@{/merchant/home}" class="btn btn-outline-dark">My shops</a>
+            <a th:href="@{/}" class="btn btn-outline-dark">Home</a>
         </div>
     </div>
     <form th:action="@{/merchant/shops}" th:object="${shopForm}" method="post" class="mt-4">
@@ -39,7 +40,7 @@
             <input id="tagsString" type="text" th:field="*{tagsString}" class="form-control"
                    placeholder="e.g. electronics, apparel">
         </div>
-        <button type="submit" class="btn btn-success w-100">Create Shop</button>
+        <button type="submit" class="btn btn-success w-100">Next: Add Products</button>
     </form>
 </body>
 </html>
