@@ -16,6 +16,9 @@
         <div class="navbar-nav">
             <a class="nav-link" th:href="@{/shops}">Shops</a>
             <a class="nav-link" th:href="@{/merchant/shops/new}">Sell</a>
+            <a class="nav-link" th:href="@{/cart}">
+                Cart (<span th:text="${cartItemCount ?: 0}">0</span>)
+            </a>
         </div>
     </div>
 </nav>

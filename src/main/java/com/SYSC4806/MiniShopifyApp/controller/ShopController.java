@@ -1,8 +1,9 @@
 package com.SYSC4806.MiniShopifyApp.controller;
 
+import com.SYSC4806.MiniShopifyApp.model.Product;
 import com.SYSC4806.MiniShopifyApp.model.Shop;
+import com.SYSC4806.MiniShopifyApp.repository.ProductRepository;
 import com.SYSC4806.MiniShopifyApp.repository.ShopRepository;
-import org.apache.coyote.Response;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
@@ -18,9 +19,11 @@ import java.util.List;
 public class ShopController {
 
     private ShopRepository shopRepository;
+    private ProductRepository productRepository;
 
-    public ShopController(ShopRepository shopRepository) {
+    public ShopController(ShopRepository shopRepository, ProductRepository productRepository) {
         this.shopRepository = shopRepository;
+        this.productRepository = productRepository;
     }
 
     @GetMapping("/shops")
@@ -44,5 +47,17 @@ public class ShopController {
 
         model.addAttribute("shop", shop);
         return "storefront";
+    }
+
+    @GetMapping("/shops/{shopId}/products/{productId}")
+    public String productDetails(@PathVariable Long shopId, @PathVariable Long productId, Model model) {
+
+        Product product = productRepository.findById(productId).
+                filter(p -> p.getShop().getId().equals(shopId)).orElseThrow(() ->
+                        new ResponseStatusException(HttpStatus.NOT_FOUND, "Product not found"));
+
+        model.addAttribute("product", product);
+        model.addAttribute("shop", product.getShop());
+        return "product-details";
     }
 }
