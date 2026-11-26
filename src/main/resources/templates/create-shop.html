@@ -16,7 +16,12 @@
     <form th:action="@{/merchant/shops}" th:object="${shopForm}" method="post" class="mt-4">
         <div class="mb-3">
             <label for="merchantName" class="form-label">Merchant Name:</label>
-            <input id="merchantName" type="text" th:field="*{merchantName}" class="form-control">
+            <select id="merchantName" th:field="*{merchantName}" class="form-select" required>
+                <option value="">Choose a merchant</option>
+                <option th:each="merchantName : ${merchants}"
+                        th:value="${merchantName}"
+                        th:text="${merchantName}">Merchant</option>
+            </select>
             <div th:if="${#fields.hasErrors('merchantName')}" th:errors="*{merchantName}" class="text-danger"></div>
         </div>
         <div class="mb-3">

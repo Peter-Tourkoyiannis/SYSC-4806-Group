@@ -84,13 +84,16 @@ public class MerchantShopController {
         ShopForm form = new ShopForm();
         form.setMerchantName(merchantName);
         model.addAttribute("shopForm", form);
+        model.addAttribute("merchants", getMerchantNames());
         return "create-shop";
     }
 
     @PostMapping("/shops")
     public String createShop(@Valid @ModelAttribute("shopForm") ShopForm form,
-                             BindingResult bindingResult) {
+                             BindingResult bindingResult,
+                             Model model) {
         if (bindingResult.hasErrors()) {
+            model.addAttribute("merchants", getMerchantNames());
             return "create-shop";
         }
 
@@ -150,5 +153,11 @@ public class MerchantShopController {
                 .map(String::trim)
                 .filter(tag -> !tag.isEmpty())
                 .collect(Collectors.toSet()));
+    }
+
+    private Set<String> getMerchantNames() {
+        Set<String> merchantNames = new TreeSet<>(String.CASE_INSENSITIVE_ORDER);
+        merchantRepository.findAll(Sort.by("name")).forEach(merchant -> merchantNames.add(merchant.getName()));
+        return merchantNames;
     }
 }
