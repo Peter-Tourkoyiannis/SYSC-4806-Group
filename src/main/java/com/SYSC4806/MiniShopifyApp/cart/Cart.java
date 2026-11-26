@@ -27,4 +27,20 @@ public class Cart {
     public void clear() {
         items.clear();
     }
+
+    public void update(Long productId, int qty) {
+        if (qty <= 0) {
+            throw new IllegalArgumentException("Quantity must be positive");
+        }
+
+        if (!items.containsKey(productId)) {
+            throw new IllegalArgumentException("Product is not in the cart");
+        }
+
+        items.put(productId, qty);
+    }
+
+    public void remove(Long productId) {
+        items.remove(productId);
+    }
 }
