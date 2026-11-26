@@ -1,6 +1,23 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+</head>
 <body>
-<nav th:fragment="navbar"></nav>
+<nav th:fragment="navbar" class="navbar navbar-expand bg-body-tertiary border-bottom mb-4">
+    <div class="container">
+        <a class="navbar-brand fw-semibold" th:href="@{/}">Mini-Shopify</a>
+        <div class="navbar-nav">
+            <a class="nav-link" th:href="@{/shops}">Shops</a>
+            <a class="nav-link" th:href="@{/cart}">
+                Cart <span class="badge text-bg-secondary" th:text="${cartItemCount}">0</span>
+            </a>
+            <a class="nav-link" th:href="@{/merchant/home}">Sell</a>
+        </div>
+    </div>
+</nav>
 </body>
 </html>

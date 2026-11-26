@@ -13,9 +13,12 @@ public class Product {
     private double price;
     private int inventory;
 
-    @Lob
-    @Column(columnDefinition = "LONGBLOB")
+    @Version
+    private Long version;
+
+    @Column(length = 10_000_000)
     private byte[] imageBytes;
+    private String imageContentType;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "shop_id")
@@ -38,4 +41,7 @@ public class Product {
     public void setImageBytes(byte[] imageBytes) { this.imageBytes = imageBytes; }
     public Shop getShop() { return shop; }
     public void setShop(Shop shop) { this.shop = shop; }
+    public String getImageContentType() { return imageContentType; }
+    public void setImageContentType(String imageContentType) { this.imageContentType = imageContentType; }
+    public Long getVersion() { return version; }
 }
