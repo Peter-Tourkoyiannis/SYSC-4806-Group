@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Order Confirmed | Mini-Shopify</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+</head>
+<body class="bg-light">
+    <div class="container min-vh-100 d-flex align-items-center justify-content-center">
+    <div class="card shadow-sm border-0 rounded-4 p-4" style="width: 100%; max-width: 460px;">
+        <div class="text-center mb-4">
+            <div class="rounded-circle bg-success-subtle text-success d-inline-flex align-items-center justify-content-center mb-3"
+                style="width: 64px; height: 64px; font-size: 32px;">
+               &#10003;
+            </div>
+            <h1 class="h3 fw-bold">Order Confirmed!</h1>
+            <p class="text-muted">Thank you for your purchase. Your order has been placed successfully.</p>
+        </div>
+        <div class="bg-light rounded-3 p-3 mb-3">
+        <p>Order ID: <span th:text="${order.id}"></span></p>
+        <p>Total: $<span th:text="${order.total}"></span></p>
+        </div>
+        <a href="/shops" class="btn btn-primary w-100 mt-3">
+            Continue Shopping
+        </a>
+    </div>
+</div>
+</body>
+</html>
