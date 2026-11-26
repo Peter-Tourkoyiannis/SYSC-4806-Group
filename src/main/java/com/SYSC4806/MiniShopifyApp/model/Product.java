@@ -13,8 +13,7 @@ public class Product {
     private double price;
     private int inventory;
 
-    @Lob
-    @Column(columnDefinition = "LONGBLOB")
+    @Column
     private byte[] imageBytes;
 
     @ManyToOne(fetch = FetchType.LAZY)
